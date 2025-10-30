@@ -311,3 +311,75 @@ def get_github_integration() -> GitHubIntegration:
         _github_integration = GitHubIntegration()
     return _github_integration
 
+
+if __name__ == "__main__":
+    """Check GitHub integration status when run directly."""
+    print("=" * 60)
+    print("GitHub Integration Status")
+    print("=" * 60)
+    print()
+
+    github = get_github_integration()
+
+    if not github.is_enabled():
+        print("❌ GitHub integration is DISABLED")
+        print()
+        print("To enable, edit: openspec/.github-config.json")
+        print('Set "enabled": true')
+        exit(1)
+
+    print("✅ GitHub Integration: ENABLED")
+    print()
+
+    status = github.get_status()
+
+    if "error" in status:
+        print(f"❌ Error: {status['message']}")
+        print(f"   Details: {status['error']}")
+        exit(1)
+
+    print(f"Repository:")
+    print(f"  URL: {status['repository']['url']}")
+    print(f"  Owner: {status['repository']['owner']}")
+    print(f"  Name: {status['repository']['name']}")
+    print(f"  Branch: {status['repository']['branch']}")
+    print()
+
+    print(f"Sync Status:")
+    print(f"  Uncommitted files: {status['uncommitted_files']}")
+    print(f"  Commits ahead: {status['commits_ahead']}")
+    print(f"  Commits behind: {status['commits_behind']}")
+    print(f"  In sync: {'✅ Yes' if status['in_sync'] else '⚠️  No'}")
+    print()
+
+    print(f"Configuration:")
+    print(f"  Auto-commit: {'✅' if github.config.get('auto_commit') else '❌'}")
+    print(f"  Auto-push: {'✅' if github.config.get('auto_push') else '❌'}")
+    print(f"  Sync on proposal: {'✅' if github.config.get('sync_on_proposal') else '❌'}")
+    print(f"  Sync on apply: {'✅' if github.config.get('sync_on_apply') else '❌'}")
+    print(f"  Sync on archive: {'✅' if github.config.get('sync_on_archive') else '❌'}")
+    print(f"  Sync on update: {'✅' if github.config.get('sync_on_update') else '❌'}")
+    print()
+
+    if status.get('metadata'):
+        print(f"Metadata:")
+        print(f"  Enabled at: {status['metadata'].get('enabled_at', 'N/A')}")
+        print(f"  Last sync: {status['metadata'].get('last_sync', 'Never')}")
+        print(f"  Total syncs: {status['metadata'].get('total_syncs', 0)}")
+        print()
+
+    print("=" * 60)
+
+    if status['in_sync']:
+        print("✅ Everything is in sync!")
+    else:
+        print("⚠️  Repository is not in sync")
+        if status['uncommitted_files'] > 0:
+            print(f"   Run 'git status' to see uncommitted files")
+        if status['commits_ahead'] > 0:
+            print(f"   Run 'git push' to push {status['commits_ahead']} commit(s)")
+        if status['commits_behind'] > 0:
+            print(f"   Run 'git pull' to pull {status['commits_behind']} commit(s)")
+
+    print("=" * 60)
+
