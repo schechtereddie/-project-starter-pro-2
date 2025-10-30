@@ -119,7 +119,7 @@ This directory contains all approved system specifications for Project Starter P
 ---
 
 ### 6. Security Specification
-**File**: `security/spec.md`  
+**File**: `security/spec.md`
 **Purpose**: Define authentication, authorization, and data protection
 
 **Security Measures**:
@@ -137,6 +137,32 @@ This directory contains all approved system specifications for Project Starter P
 - Secure by default
 - Privacy first
 - Comprehensive audit trails
+
+---
+
+### 7. GitHub Integration Specification
+**File**: `integrations/github-integration.md`
+**Purpose**: Define automatic GitHub synchronization for OpenSpec changes
+
+**Features**:
+- **Auto-Commit** - Automatic commits with standardized messages
+- **Auto-Push** - Automatic push to GitHub
+- **Status Tracking** - Monitor sync status and metadata
+- **Configuration** - JSON-based configuration file
+- **Enable/Disable** - Full control over integration
+- **Error Handling** - Robust error handling and validation
+
+**Key Components**:
+- GitHubIntegration class
+- Configuration file (`openspec/.github-config.json`)
+- Integration points in OpenSpec commands
+- Test suite and documentation
+
+**Integration Points**:
+- Proposal command (`/openspec-proposal`)
+- Apply command (`/openspec-apply`)
+- Archive command (`/openspec-archive`)
+- Update command (`/openspec-update`)
 
 ---
 
@@ -195,6 +221,8 @@ All specifications are living documents that can be updated through the OpenSpec
 | API | 1.0.0 | Active | 2025-10-30 |
 | Standards | 1.0.0 | Active | 2025-10-30 |
 | Security | 1.0.0 | Active | 2025-10-30 |
+| AI Frameworks | 1.0.0 | Active | 2025-10-30 |
+| GitHub Integration | 1.0.0 | Active | 2025-10-30 |
 
 ---
 
@@ -213,8 +241,12 @@ openspec/specs/
 │   └── spec.md           # Development standards
 ├── frameworks/
 │   └── ai-frameworks-overview.md  # AI frameworks and tools
-└── security/
-    └── spec.md           # Security specification
+├── security/
+│   └── spec.md           # Security specification
+├── integrations/
+│   └── github-integration.md  # GitHub integration
+└── agents/
+    └── documentation-agent-framework-scraper.md  # Documentation agent
 ```
 
 ---
