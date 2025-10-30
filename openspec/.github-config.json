@@ -1,0 +1,29 @@
+{
+  "enabled": true,
+  "repository": {
+    "url": "https://github.com/schechtereddie/-project-starter-pro-2.git",
+    "owner": "schechtereddie",
+    "name": "-project-starter-pro-2",
+    "branch": "main"
+  },
+  "auto_commit": true,
+  "auto_push": true,
+  "commit_message_template": "openspec: {action} - {change_name}",
+  "create_issues": false,
+  "create_prs": false,
+  "sync_on_proposal": true,
+  "sync_on_apply": true,
+  "sync_on_archive": true,
+  "sync_on_update": true,
+  "notifications": {
+    "enabled": false,
+    "webhook_url": null
+  },
+  "metadata": {
+    "enabled_at": "2025-10-30T00:00:00Z",
+    "enabled_by": "system",
+    "last_sync": null,
+    "total_syncs": 0
+  }
+}
+
