@@ -6,3 +6,5 @@ pydantic-settings
 celery
 redis
 alembic
+python-jose[cryptography]
+passlib[bcrypt]
