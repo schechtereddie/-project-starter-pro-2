@@ -8,6 +8,7 @@ from alembic import context
 # Import your models here
 from backend.app.db.base import Base
 from backend.app.models.project import Project
+from backend.app.models.user import User
 from backend.app.core.config import settings
 
 # this is the Alembic Config object
