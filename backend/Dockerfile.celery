@@ -1,0 +1,16 @@
+# syntax=docker/dockerfile:1
+FROM python:3.13-slim
+
+WORKDIR /app
+
+# Copy only requirements first (caching optimization)
+COPY backend/requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY backend /app/backend
+
+# Start Celery worker
+CMD ["celery", "-A", "backend.app.workers.celery_app.celery", "worker", "--loglevel=info"]
+

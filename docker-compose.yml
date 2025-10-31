@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: psp-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+
+  celery:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.celery
+    container_name: psp-celery
+    env_file:
+      - .env
+    depends_on:
+      - backend
+      - redis
+      - db
+
+  db:
+    image: postgres:16
+    container_name: psp-db
+    environment:
+      POSTGRES_USER: psp_user
+      POSTGRES_PASSWORD: psp_pass
+      POSTGRES_DB: psp
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    container_name: psp-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
+
